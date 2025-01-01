@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Prices</title>
+    <style>
+        /* Your existing styles remain unchanged */
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Live Market Prices</h1>
+    </header>
+
+    <div class="container">
+        <div class="prices">
+            <div class="card" id="gold">
+                <h3>GOLD</h3>
+                <p>Loading...</p>
+            </div>
+            <div class="card" id="silver">
+                <h3>SILVER</h3>
+                <p>Loading...</p>
+            </div>
+            <div class="card" id="brent">
+                <h3>BRENT</h3>
+                <p>Loading...</p>
+            </div>
+            <div class="card" id="jpyusd">
+                <h3>JPY/USD</h3>
+                <p>Loading...</p>
+            </div>
+            <div class="card" id="usd10y">
+                <h3>USD 10Y</h3>
+                <p>Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_ENDPOINT = "https://example-forex-api.com/prices"; // Replace with actual Forex API endpoint
+        const API_KEY = "your-api-key-here"; // Replace with your Forex API key
+
+        // Function to fetch live prices
+        async function fetchLivePrices() {
+            try {
+                const response = await fetch(`${API_ENDPOINT}?apikey=${API_KEY}`);
+                if (!response.ok) throw new Error("Failed to fetch data");
+
+                const data = await response.json();
+
+                // Update the prices on the page
+                document.getElementById("gold").querySelector("p").textContent = data.GOLD || "N/A";
+                document.getElementById("silver").querySelector("p").textContent = data.SILVER || "N/A";
+                document.getElementById("brent").querySelector("p").textContent = data.BRENT || "N/A";
+                document.getElementById("jpyusd").querySelector("p").textContent = data.JPYUSD || "N/A";
+                document.getElementById("usd10y").querySelector("p").textContent = data.USD10Y || "N/A";
+            } catch (error) {
+                console.error("Error fetching live prices:", error);
+            }
+        }
+
+        // Call the function to fetch and display prices
+        fetchLivePrices();
+    </script>
+</body>
+</html>
